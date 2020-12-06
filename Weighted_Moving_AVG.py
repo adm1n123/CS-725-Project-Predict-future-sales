@@ -56,9 +56,6 @@ def predict_last_month(train_input, test):
     return None
 
 
-# ############################################################# Data Input #####################################################################
-
-
 def singleton(class_):
     instances = {}
 
