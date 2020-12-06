@@ -230,7 +230,7 @@ def neural_network(train_input, train_target, test_input, test_target):
 def get_test_data_predictions(net, inputs):
 
     ans=net(inputs)
-    #ans=np.ceil(ans)
+    
     ans=np.round(ans,1)
     
     Id=[]
@@ -310,8 +310,7 @@ class Data:
         dev_target = dev_data[:, -1]
         dev_input = np.delete(dev_data, -1, 1)
       
-        # dev_input[:, 0] = dev_input[:, 0] % 12
-        # dev_input[:, -1] = 0
+     
 
         return train_input, train_target, dev_input, dev_target
 
@@ -320,7 +319,7 @@ def main():
     data = Data()
     data.load_data()
     train_input, train_target, dev_input, dev_target = data.get_data(train_prct=99.9999, dev_prct=0.0001)
-    # a = train_target[:].argsort()
+ 
 
     neural_network(train_input, train_target, dev_input, dev_target)
 
