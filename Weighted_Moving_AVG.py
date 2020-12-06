@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-# #######################################################  MODEL Weighted avg. ####################################################################
+# #######################################################  MODEL Weighted Moving avg. ####################################################################
 # Kaggle Score: 1.05798     Rank: 5283
 def get_block_sum(block, train_input, test):
     prediction = train_input[train_input.date_block_num == block].groupby(['shop_id', 'item_id']).item_cnt_day.sum()
