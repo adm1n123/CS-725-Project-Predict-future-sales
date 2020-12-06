@@ -30,6 +30,8 @@ series_agg['item_price']=series_agg['item_price'].fillna(0)
 series_agg=pd.merge(series_agg,item_cat[['item_id','item_category_id']],how='left')
 series_agg=series_agg.reset_index()
 
+# Above idea to create combination of all shop_id,item_id for a particular date_block_num is taken from one of kaggle threads with modifications (https://www.kaggle.com/szhou42/predict-future-sales-top-11-solution)
+
 
 
 for i in range(1,5):
