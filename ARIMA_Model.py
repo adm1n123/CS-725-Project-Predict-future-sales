@@ -3,12 +3,33 @@ from time import localtime
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
 
 # #######################################################  ARIMA Model ####################################################################
 # Kaggle Score: 1.17767
 from statsmodels.tsa.arima_model import ARIMA
 import warnings
 warnings.filterwarnings("ignore")
+
+
+def plot_data(data):
+    df = data.groupby(['date_block_num']).item_cnt_day.sum()
+    print(df)
+    plt.plot(df)
+    plt.xlabel('Number of Months')
+    plt.ylabel('Total sales')
+    plt.show(block=True)
+    plt.interactive(False)
+    # exit(0)
+
+    # multiplicative
+    res = sm.tsa.seasonal_decompose(df.values, freq=12, model="multiplicative")
+    plt.figure(figsize=(20, 20))
+    fig = res.plot()
+    fig.show()
+
+    return None
 
 
 def get_next_sale_prediction(data):
@@ -97,6 +118,7 @@ def main():
     data.load_data()
     train_input, test = data.get_data()
 
+    plot_data(data.get_train_df())
     predict_arima_model(train_input, test)
 
 
