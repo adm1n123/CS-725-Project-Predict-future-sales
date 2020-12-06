@@ -384,16 +384,31 @@ for i in range(1,5):
 
 
 
-data_train=series_agg.copy()
+from sklearn.model_selection import train_test_split
+data=series_agg.copy()
+data_train, dev_input = train_test_split(data, train_size=0.99)
 train_target=data_train['item_cnt_day']
+dev_target= dev_input['item_cnt_day']
 del data_train['item_cnt_day']
+del dev_input['item_cnt_day']
 print(data_train)
 train_features=data_train.to_numpy()
 train_targets=train_target.to_numpy()
+dev_features=dev_input.to_numpy()
+dev_targets=dev_target.to_numpy()
 a_solution = analytical_solution(train_features,train_targets,C=1e-8)
 print('evaluating analytical_solution...')
 train_loss=do_evaluation(train_features, train_targets, a_solution)
+dev_loss=do_evaluation(dev_features, dev_targets, a_solution)
 print(train_loss)
+print(dev_loss)
+
+
+
+ans=get_predictions(test_data, a_solution)
+
+
+
 
 
 
