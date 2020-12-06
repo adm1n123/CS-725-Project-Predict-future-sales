@@ -6,7 +6,7 @@ import numpy as np
 
 # #######################################################  MODEL Weighted avg. ####################################################################
 # Kaggle Score: 1.05798     Rank: 5283
-def get_block_average(block, train_input, test):
+def get_block_sum(block, train_input, test):
     prediction = train_input[train_input.date_block_num == block].groupby(['shop_id', 'item_id']).item_cnt_day.sum()
     prediction = prediction.clip(0, 20)
     prediction = pd.merge(test, prediction, how='left', on=['shop_id', 'item_id']).fillna(0.)
@@ -32,7 +32,7 @@ def predict_weighted_avg(train_input, test):
 
     df = pd.DataFrame()
     for block in range(max_block+1):
-        df[block] = get_block_average(block, train_input, test)
+        df[block] = get_block_sum(block, train_input, test)
 
     df[max_block+1] = get_weighted_avg(df, max_block)
 
@@ -41,9 +41,7 @@ def predict_weighted_avg(train_input, test):
     df = df.rename(index=str, columns={max_block+1: 'item_cnt_month'})
     df.clip(0, 20)
 
-    print(df)
-
-    df.to_csv("data/weighted_avg.csv", index=False)
+    df.to_csv("data/weighted_moving_avg.csv", index=False)
     return None
 
 
