@@ -3,7 +3,7 @@
 
 # # Linear Regression
 
-# In[1]:
+
 
 
 import pandas as pd
@@ -324,7 +324,7 @@ def do_evaluation(feature_matrix, targets, weights):
     return loss
 
 
-# In[4]:
+
 
 
 from pandas import read_csv
@@ -383,7 +383,7 @@ for i in range(1,5):
 
 
 
-# In[5]:
+
 
 
 data_train=series_agg.copy()
@@ -403,7 +403,6 @@ ans=get_predictions(test_data, a_solution)
 
 
 
-# In[ ]:
 
 
 Id=[]
