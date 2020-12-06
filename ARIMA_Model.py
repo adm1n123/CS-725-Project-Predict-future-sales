@@ -59,8 +59,6 @@ def predict_arima_model(train_input, test):
     prediction_df.to_csv("data/arima_model.csv", index=False)
     return None
 
-# ############################################################# Data Input #####################################################################
-
 
 def singleton(class_):
     instances = {}
