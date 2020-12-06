@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
-
 # # Random Forest using sklearn
 
-# In[4]:
+
 
 
 from sklearn.ensemble import RandomForestRegressor
-
-
-# In[5]:
 
 
 from pandas import read_csv
@@ -67,14 +63,14 @@ for i in range(1,5):
     test_data['item_cnt_prev'+str(i)]=series_agg['item_cnt_prev'+str(i)].fillna(0)
 
 
-# In[6]:
+
 
 
 def rmse(y, y_hat):
     return np.sqrt(np.mean((y_hat-y)**2))
 
 
-# In[7]:
+
 
 
 #without any parameter
@@ -90,7 +86,7 @@ print(train_error)
 #Test error= 4.825
 
 
-# In[8]:
+
 
 
 #with maxdepth = 15
@@ -104,7 +100,7 @@ print(train_error_2)
 #test error= 2.836
 
 
-# In[ ]:
+
 
 
 #with maxdepth = 10
@@ -118,7 +114,7 @@ print(train_error_3)
 #test error = 1.725
 
 
-# In[ ]:
+
 
 
 Id=[]
