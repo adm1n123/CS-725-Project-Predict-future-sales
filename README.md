@@ -1,6 +1,5 @@
 # CS-725-Project-Predict-future-sales
 References:
-
 https://towardsdatascience.com/time-series-forecasting-using-auto-arima-in-python-bb83e49210cd
 https://www.kaggle.com/jayantawasthi/rnn-used-to-predict-future-sale
 https://www.kaggle.com/szhou42/predict-future-sales-top-11-solution
