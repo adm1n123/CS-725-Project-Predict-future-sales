@@ -34,6 +34,8 @@ def predict_weighted_avg(train_input, test):
     for block in range(max_block+1):
         df[block] = get_block_sum(block, train_input, test)
 
+    get_train_error(df)
+
     df[max_block+1] = get_weighted_avg(df, max_block)
 
     df['ID'] = [i for i in range(len(test.index))]
@@ -43,6 +45,26 @@ def predict_weighted_avg(train_input, test):
 
     df.to_csv("data/weighted_moving_avg.csv", index=False)
     return None
+
+
+def get_train_error(df):
+    data = df.copy()
+    data['train_prediction'] = get_weighted_avg(data, 32)
+    y = data[33].to_numpy()
+    y_hat = data['train_prediction'].to_numpy()
+    print("Train RMSE: ", rmse(y, y_hat))
+    return None
+
+
+def loss_mse(y, y_hat):
+    diff = np.subtract(y_hat, y)
+    sqr_error = np.square(diff)
+    mse = sqr_error.mean()
+    return mse
+
+
+def rmse(y, y_hat):
+    return np.sqrt(loss_mse(y, y_hat))
 
 
 # #######################################################  MODEL Predict Last Month #############################################################
