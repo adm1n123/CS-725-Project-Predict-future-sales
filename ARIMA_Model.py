@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 
 def plot_data(data):
     df = data.groupby(['date_block_num']).item_cnt_day.sum()
-    print(df)
+    # print(df)
     plt.plot(df)
     plt.xlabel('Number of Months')
     plt.ylabel('Total sales')
@@ -104,10 +104,12 @@ def get_train_error(df):
         # print(row[max_block])
 
     sales_df = pd.DataFrame(data=prediction, columns=['item_cnt_month'])
+    # print("sales_df", sales_df)
 
-    data['train_prediction'] = sales_df['item_cnt_month']
     y = data[33].to_numpy()
-    y_hat = data['train_prediction'].to_numpy()
+    # print(y)
+    y_hat = sales_df['item_cnt_month'].to_numpy()
+    # print(y_hat)
     print("Train RMSE: ", rmse(y, y_hat))
     return None
 
