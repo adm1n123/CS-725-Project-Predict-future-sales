@@ -62,6 +62,8 @@ def predict_arima_model(train_input, test):
     for block in range(max_block):
         df[block] = get_block_average(block, train_input, test)
 
+    get_train_error(df)
+
     # count = 0
     # df[max_block] = 0
     prediction = []
@@ -79,6 +81,33 @@ def predict_arima_model(train_input, test):
 
     prediction_df.to_csv("data/arima_model.csv", index=False)
     return None
+
+
+def get_train_error(df):
+    data = df.copy()
+    prediction = []
+    for index, row in data.iterrows():
+        prediction.append(get_next_sale_prediction(row[:-2]))
+        # print(row[max_block])
+
+    sales_df = pd.DataFrame(data=prediction, columns=['item_cnt_month'])
+
+    data['train_prediction'] = sales_df['item_cnt_month']
+    y = data[33].to_numpy()
+    y_hat = data['train_prediction'].to_numpy()
+    print("Train RMSE: ", rmse(y, y_hat))
+    return None
+
+
+def loss_mse(y, y_hat):
+    diff = np.subtract(y_hat, y)
+    sqr_error = np.square(diff)
+    mse = sqr_error.mean()
+    return mse
+
+
+def rmse(y, y_hat):
+    return np.sqrt(loss_mse(y, y_hat))
 
 
 def singleton(class_):
