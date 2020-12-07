@@ -83,11 +83,24 @@ def predict_arima_model(train_input, test):
     return None
 
 
+def get_train_prediction(data):
+    arima_model = ARIMA(data, order=(0, 0, 0))
+    try:
+        arima_fitted_model = arima_model.fit(disp=0)
+        # print(arima_fitted_model.summary())
+        # print(data)
+        series = arima_fitted_model.predict(start=33, end=33, dynamic=True, typ='linear')
+        return series.get(33)
+    except:
+        print("error")
+        return 0
+
+
 def get_train_error(df):
     data = df.copy()
     prediction = []
     for index, row in data.iterrows():
-        prediction.append(get_next_sale_prediction(row[:-2]))
+        prediction.append(get_train_prediction(row[:-1]))
         # print(row[max_block])
 
     sales_df = pd.DataFrame(data=prediction, columns=['item_cnt_month'])
